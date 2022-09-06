@@ -1,11 +1,14 @@
 name: Trigger Role Rotation Script
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '00 18 * * fri'
 jobs:
   rotate:
     name: Rotate weekly roles
+    # To not run in forks
+    if: github.repository_owner == 'packit'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
