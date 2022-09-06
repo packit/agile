@@ -76,7 +76,7 @@ class RotationHelper:
         for issue, new_maintainer in zip(self.previous_week_issues, maintainers):
             self.weekly_roles_project.create_issue(
                 title=issue.title,
-                description=issue.description,
+                body=issue.description,
                 assignees=[new_maintainer],
                 labels=["roles"]
             )
