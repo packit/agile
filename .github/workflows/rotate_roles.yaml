@@ -3,7 +3,7 @@ name: Trigger Role Rotation Script
 on:
   workflow_dispatch:
   schedule:
-    - cron: '00 18 * * fri'
+    - cron: "00 18 * * fri"
 jobs:
   rotate:
     name: Rotate weekly roles
@@ -11,15 +11,15 @@ jobs:
     if: github.repository_owner == 'packit'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
-      with:
-        token: ${{ secrets.GH_DOTCOM_TOKEN }}
-        python-version: '3.10'
-        cache: 'pip'
-    - name: Install requirements
-      run: pip install -r requirements.txt
-    - name: Clone weekly roles
-      env:
-        TOKEN: ${{ secrets.GH_DOTCOM_TOKEN }}
-      run: python clone_roles.py
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          token: ${{ secrets.GH_DOTCOM_TOKEN }}
+          python-version: "3.10"
+          cache: "pip"
+      - name: Install requirements
+        run: pip install -r requirements.txt
+      - name: Clone weekly roles
+        env:
+          TOKEN: ${{ secrets.GH_DOTCOM_TOKEN }}
+        run: python clone_roles.py
