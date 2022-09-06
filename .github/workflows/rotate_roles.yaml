@@ -7,6 +7,8 @@ on:
 jobs:
   rotate:
     name: Rotate weekly roles
+    # To not run in forks
+    if: github.repository_owner == 'packit'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
