@@ -1,0 +1,15 @@
+name: Trigger Role Rotation Script
+
+on:
+  schedule:
+    - cron: '00 18 * * fri'
+jobs:
+  rotate:
+    name: Rotate weekly roles
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10' 
+    - run: python clone_roles.py
