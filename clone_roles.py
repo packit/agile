@@ -30,6 +30,7 @@ ISSUE_TITLES = [
     "Community Shepherd",
 ]
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
