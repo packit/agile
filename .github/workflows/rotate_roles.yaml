@@ -17,8 +17,6 @@ jobs:
         token: ${{ secrets.GH_DOTCOM_TOKEN }}
         python-version: '3.10'
         cache: 'pip'
-    - name: Install dependencies
-      run: pip install ogr
     - name: Clone weekly roles
       env:
         TOKEN: ${{ secrets.GH_DOTCOM_TOKEN }}
