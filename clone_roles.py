@@ -35,18 +35,16 @@ logger = logging.getLogger(__name__)
 
 class RotationHelper:
     def __init__(self, token):
-        self.weekly_roles_project: GithubProject = GithubService(token=token).get_project(
-            repo="weekly-roles",
-            namespace="packit"
-        )
+        self.weekly_roles_project: GithubProject = GithubService(
+            token=token
+        ).get_project(repo="weekly-roles", namespace="packit")
         self._previous_week_issues = None
 
     @property
     def previous_week_issues(self):
         if not self._previous_week_issues:
             issues = self.weekly_roles_project.get_issue_list(
-                labels=["roles"],
-                status=IssueStatus.all
+                labels=["roles"], status=IssueStatus.all
             )
             self._previous_week_issues = [
                 self.get_issue_by_title(issue_title, issues)
@@ -78,7 +76,7 @@ class RotationHelper:
                 title=issue.title,
                 description=issue.description,
                 assignees=[new_maintainer],
-                labels=["roles"]
+                labels=["roles"],
             )
             logger.info(f"Role: {issue.title}, assignee: {new_maintainer}")
 
