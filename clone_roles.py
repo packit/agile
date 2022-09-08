@@ -1,13 +1,11 @@
+import logging
 import os
 import random
-import logging
 from typing import List
 
-from ogr.services.github.issue import GithubIssue
+from ogr.abstract import IssueStatus, Issue
 from ogr.services.github.project import GithubProject
 from ogr.services.github.service import GithubService
-
-from ogr.abstract import IssueStatus
 
 PEOPLE = {
     "lachmanfrantisek",
@@ -54,7 +52,7 @@ class RotationHelper:
         return self._previous_week_issues
 
     @staticmethod
-    def get_issue_by_title(title: str, issues: List[GithubIssue]):
+    def get_issue_by_title(title: str, issues: List[Issue]):
         return [issue for issue in issues if issue.title == title][0]
 
     def _rotate_roles(self) -> List[str]:
