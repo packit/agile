@@ -1,13 +1,11 @@
+import logging
 import os
 import random
-import logging
 from typing import List
 
-from ogr.services.github.issue import GithubIssue
+from ogr.abstract import IssueStatus, Issue
 from ogr.services.github.project import GithubProject
 from ogr.services.github.service import GithubService
-
-from ogr.abstract import IssueStatus
 
 PEOPLE = {
     "lachmanfrantisek",
@@ -54,16 +52,18 @@ class RotationHelper:
         return self._previous_week_issues
 
     @staticmethod
-    def get_issue_by_title(title: str, issues: List[GithubIssue]):
-        return [issue for issue in issues if issue.title == title][0]
+    def get_issue_by_title(title: str, issues: List[Issue]):
+        # issues are sorted from the most recently updated
+        # so the first found is the most recent
+        next(issue for issue in issues if issue.title == title)
 
     def _rotate_roles(self) -> List[str]:
         maintainers = [issue.assignees[0].login for issue in self.previous_week_issues]
         candidates = list(PEOPLE - set(maintainers))
 
-        # remove responsible of the first role
+        # remove responsible for the first role
         maintainers.pop(0)
-        # randomly pick on someone that didn't do anything last week ;)
+        # randomly pick someone who didn't do anything last week ;)
         maintainers.append(random.choice(candidates))
 
         return maintainers
