@@ -55,7 +55,7 @@ class RotationHelper:
     def get_issue_by_title(title: str, issues: List[Issue]):
         # issues are sorted from the most recently updated
         # so the first found is the most recent
-        next(issue for issue in issues if issue.title == title)
+        return next(issue for issue in issues if issue.title == title)
 
     def _rotate_roles(self) -> List[str]:
         maintainers = [issue.assignees[0].login for issue in self.previous_week_issues]
