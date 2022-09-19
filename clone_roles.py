@@ -45,6 +45,8 @@ class RotationHelper:
             issues = self.weekly_roles_project.get_issue_list(
                 labels=["roles"], status=IssueStatus.all
             )
+            # sort the issues by created attribute from the newest
+            issues.sort(key=lambda issue: issue.created, reverse=True)
             self._previous_week_issues = [
                 self.get_issue_by_title(issue_title, issues)
                 for issue_title in ISSUE_TITLES
@@ -53,7 +55,7 @@ class RotationHelper:
 
     @staticmethod
     def get_issue_by_title(title: str, issues: List[Issue]):
-        # issues are sorted from the most recently updated
+        # issues are sorted from the most recently created
         # so the first found is the most recent
         return next(issue for issue in issues if issue.title == title)
 
