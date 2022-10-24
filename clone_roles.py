@@ -75,9 +75,11 @@ class RotationHelper:
 
         logger.info("Creating issues:")
         for issue, new_maintainer in zip(self.previous_week_issues, maintainers):
+            # make all tasks not done
+            new_description = issue.description.replace(" [x]", " [ ]")
             self.weekly_roles_project.create_issue(
                 title=issue.title,
-                body=issue.description,
+                body=new_description,
                 assignees=[new_maintainer],
                 labels=["roles"],
             )
