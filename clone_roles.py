@@ -62,11 +62,22 @@ class RotationHelper:
     def _rotate_roles(self) -> List[str]:
         maintainers = [issue.assignees[0].login for issue in self.previous_week_issues]
         candidates = list(PEOPLE - set(maintainers))
+        random.shuffle(candidates)
 
-        # remove responsible for the first role
-        maintainers.pop(0)
-        # randomly pick someone who didn't do anything last week ;)
-        maintainers.append(random.choice(candidates))
+        next_candidate = (
+            lambda: candidates.pop() if candidates else random.choice(list(PEOPLE))
+        )
+
+        # Remove the responsible of the first role and use the last
+        # of the candidates for the last one.
+        maintainers = maintainers[1:] + [next_candidate()]
+        # Some maintainers who were active might not
+        # be in the PEOPLE set already.
+        # Replace them with someone from candidates.
+        # Chose someone randomly if candidates run out.
+        for i, maintainer in enumerate(maintainers):
+            if maintainer not in PEOPLE:
+                maintainers[i] = next_candidate()
 
         return maintainers
 
