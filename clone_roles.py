@@ -15,7 +15,6 @@ PEOPLE = {
     "mfocko",
     "majamassarini",
     "nforro",
-    "TomasTomecek",
 }
 
 ISSUE_TITLES = [
