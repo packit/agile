@@ -9,7 +9,6 @@ from ogr.services.github.service import GithubService
 
 PEOPLE = {
     "lachmanfrantisek",
-    "csomh",
     "jpopelka",
     "lbarcziova",
     "mfocko",
