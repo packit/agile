@@ -21,7 +21,6 @@ ISSUE_TITLES = [
     "Chief of Monitors",
     "Kanban Lead",
     "Release Responsible",
-    "CI Hacker",
     "Community Shepherd",
 ]
 
