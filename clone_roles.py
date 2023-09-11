@@ -64,8 +64,9 @@ class RotationHelper:
         )
 
         # Remove the responsible of the first role and use the last
-        # of the candidates for the last one.
-        maintainers = maintainers[1:] + [next_candidate()]
+        # of the candidates for the last one or in case of no candidates
+        # (=same number of people and roles), use the responsible of the first role
+        maintainers = maintainers[1:] + [next_candidate() if candidates else maintainers[0]]
         # Some maintainers who were active might not
         # be in the PEOPLE set already.
         # Replace them with someone from candidates.
