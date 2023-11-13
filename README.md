@@ -13,7 +13,7 @@ The repository contains:
    and closing the old ones
 2. `.github/workflows/rotate_roles.yaml` - Github action that runs the script periodically (each Friday)
 
-You can read more about the process in these blog posts:
+You can read more about the process in the following blog post series:
 
 - [How to run an open-source service?](https://medium.com/@laura.barcziova/how-to-run-an-open-source-service-fb3303240e69)
 - [Inception of rotating roles](https://medium.com/@laura.barcziova/inception-of-rotating-roles-9caf971b3096)
