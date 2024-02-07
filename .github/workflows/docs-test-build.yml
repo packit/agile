@@ -33,7 +33,7 @@ jobs:
           path: ".agile-docs"
 
       - name: Move out the ‹agile›
-        run: mv .agile/docs agile
+        run: mv .agile-docs/docs agile
 
       - name: Generate newer usage graphs
         run: |
