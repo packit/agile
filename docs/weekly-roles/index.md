@@ -18,3 +18,4 @@ You can read more about the process in the following blog post series:
 - [How to run an open-source service?](https://medium.com/@laura.barcziova/how-to-run-an-open-source-service-fb3303240e69)
 - [Inception of rotating roles](https://medium.com/@laura.barcziova/inception-of-rotating-roles-9caf971b3096)
 - [Share team responsibilities efficiently](https://medium.com/@laura.barcziova/share-team-responsibilities-efficiently-9a202aad7bd0)
+- [Role rotation tutorial](https://medium.com/@laura.barcziova/role-rotation-tutorial-957ed3545ef2)
