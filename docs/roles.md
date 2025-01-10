@@ -35,9 +35,9 @@ Community Shepherd is present on our communication channels and available to hel
 
 The person who does the releases of our projects (both on GitHub and in Fedora).
 
-### Chief of monitors
+### Chief of Monitors
 
-The person responsible for checking the state of the service via metrics and Sentry alerts.
+The person responsible for monitoring the state of the service via metrics and alerts (from Sentry or Prometheus).
 
 ### Kanban Lead
 

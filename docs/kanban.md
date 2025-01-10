@@ -1,6 +1,6 @@
 # How Packit team does Kanban?
 
-Packit team follows a Kanban methodology but not use just a board with `todo`/`wip`/`done` columns. We have couple of extra columns and rules. Let's take a look:
+Packit team follows the Kanban methodology but does not just use a board with `todo`/`wip`/`done` columns. We have a couple of extra columns and rules. Let's take a look!
 
 ## Packit Kanban Board
 
@@ -10,19 +10,19 @@ The current board is publicly available at https://github.com/orgs/packit/projec
 
 #### `new`
 
-This is a column where all the new cards are added (automatically for public repositories, via GitHub action for private ones). At the beginning of each [Standup meeting](./meetings#Standup), a [triaging](#Triage) of new unassigned cards happens resulting in either moving the card away into one of the other states or assigning a team member to further investigate and finish the triaging. Also, a card can be returned to the `new` column if we realise the card is not clear or needs attention (e.g. to check for relevancy). This can happen when going through the old cards during [Standup](./meetings#Standup).
+This is a column where all the new cards are added (automatically for public repositories, via GitHub action for private ones). At the beginning of each [Standup meeting](./meetings#Standup), a [triaging](#Triage) of new unassigned cards happens resulting in either moving the card away into one of the other states or assigning a team member to further investigate and finish the triaging. Also, the card can be moved back to the `new` column if we realise the card is not clear or needs attention (e.g. to verify its relevance). This can happen when going through old cards during [Standup](./meetings#Standup).
 
 #### `backlog`
 
-This is a pile of cards that have been basically categorized but are not a current priority (present in the `priority-backlog`), or it is not within our capacity to finish them within next 3 months. The order of this column is not maintained.
+This is a pile of cards that have been basically categorized but are not a current priority (such cards are present in the `priority-backlog`), or it is not within our capacity to finish them within the next 3 months. The order of this column is not maintained.
 
 #### `priority-backlog`
 
-This is an ordered list of categorized cards that the team is considering for the next work. The priority is based on impact, user value, urgency and the current team plans and capacity. The team is revisiting the epic-level priorities on a quarterly level and the cards in the `priority-backlog` should be done in 3 months. This means the number of cards needs to be maintained below ~50.
+This is an ordered list of categorized cards that the team is considering for the upcoming work. Their priority is determined based on impact, user value, urgency and current team plans and capacity. The team revisits the epic-level priorities quarterly and the cards in the `priority-backlog` should be finished in 3 months. This means the number of cards needs to be maintained to be below ~50.
 
 #### `refined`
 
-This column consists of cards prepared to be worked on next when someone has a free capacity. The tasks should be actionable right away and doable by anyone. To get a card to this state a [refining process](#Refine) is used.
+This column consists of cards prepared to be worked on next when someone has capacity. The tasks should be actionable right away and doable by anyone. To get a card to this state a [refining process](#Refine) is used.
 
 #### `in-progress`
 
@@ -47,7 +47,7 @@ These labels help to group related cards across all the projects. The area can d
 
 #### Complexity
 
-This is a rough estimation of how much time is expected for this card to be done. Mainly to separate epics from single cards. -- work consisting of multiple tasks, usually taking more time and being discussed in quarterly meetings.
+This is a rough estimation of how much time is expected for this card to be done. Mainly to separate epics from single cards. Epics covers work consisting of multiple tasks, usually taking more time and being discussed in quarterly meetings.
 
 #### Gain
 
@@ -63,7 +63,7 @@ This determines the value it gives to affected users.
 
 #### Impact
 
-These labels determine the size of a user group affected by this card combined with a frequency. To make this comparable, it is based on generic user roles like `upstream-developer` or `fedora-maintainer`. This means we won't mark a card as high-impactful when all (but a few in reality) users of a rear functionality are affected.
+These labels determine the size of a user group affected by this card combined with a frequency. To make this comparable, it is based on generic user roles like `upstream-developer` or `fedora-maintainer`. This means we won't mark a card as high-impactful when all (but a few in reality) users of a rare functionality are affected.
 
 This needs to be combined with frequency -- this means how often they can benefit from a new feature or how often an issue is hit.
 
@@ -84,17 +84,17 @@ This label helps us gather cards to be discussed in weekly architecture meetings
 
 ### Story points
 
-Despite using Kanban, we use the Fibonnacci sequence numbers as story points similarly to Scrum to estimate the card's complexity, uncertanity and effort. As described in the [section about Refinement meeting](meetings#refinement), the main purpose of the sizing in our team is to brought up discussion and find differences in task understanding. As with regular Kanban where all the cards are made similar in time, we split all cards that can take more than a few days by not allowing cards with more than 5 story points.
+Despite using Kanban, we use the Fibonnacci sequence numbers as story points similarly to Scrum to estimate the card's complexity, uncertanity and effort. As described in the [section about Refinement meeting](meetings#refinement), the main purpose of the sizing in our team is to bring up discussion and find differences in the task understanding. As with regular Kanban where all the cards are made similar in time, we split all cards that can take more than a few days by not allowing cards with more than 5 story points.
 
 #### Story point scale
 
 This is how we think about the scale:
 
 - `1`: Very simple card done in a few hours. Everything is clear and straightforward. No unknown at all.
-- `2`: Easy card, a bit of thought required, but the ask is clear, well defined and should take one a day. Nothing unexpected is not expected.
+- `2`: Easy card, a bit of thought required, but the ask is clear, well defined and should take one day. Complications are not expected.
 - `3`: Average task requiring a couple of days to finish. A bit of unknown is possible but usually does not require much interaction with anyone else and the outcome is clearly defined.
-- `5`: Well-defined but complex card that can take a week to finis h. Can spread across multiple projects, usually requires some extra discussion and updating as part of the review process.
-- `8`: This is a complex task that can take someone more than a week to finish. We avoid such cards since such cards usually contains a lot of unknowns and can easily take multiple weeks to finish for real.
+- `5`: Well-defined but complex card that can take a week to finish. Can span across multiple projects, usually requires some extra discussion and updating as part of the review process.
+- `8`: This is a complex task that can take someone more than a week to finish. We avoid such cards since such cards usually contain a lot of unknowns and can easily take multiple weeks to finish for real.
 
 #### Action items / for discussion (Section to be removed before merging.)
 
@@ -133,13 +133,13 @@ Process of handling new cards and categorizing them.
    1. **_Is the card not valid or out of our scope?_** => Politely provide reasoning and close the issue as not planned.
    2. **_Do we have a related card for this?_** => Link the relevant cards, and add to an epic if applicable. Link and close in favour of a duplicate issue if applicable.
    3. **_Do we need to get more information from the requester? Is it necessary for a team-member to take a look?_** => Assign a person to continue with the discussion and leave it in the `new` column.
-   4. **_Is the task actionable and we are in general sure what the card is about and which way the solution be chosen?_** => Enhance the title and description, if needed, and move outside of the `new` column.
+   4. **_Is the task actionable and do we have a clear understanding of the card's purpose and the solution direction??_** => Enhance the title and description, if needed, and move outside of the `new` column.
    5. **_Does the issue come from an external person and there is a chance of contributing this?_** => Politely ask if the requester would be able to contribute this with our help.
 2. Labelling
    1. **_Can we get a new Packit user or allow an already onboarded user to start using another Packit's functionality? Can this influence the decision of a user whether Packit will be integrated in the future?_** => Add `gain/high` label.
       **_Is there a workaround or the feature is not significant to the user?_** => use `gain/low`.
-   2. **_Is this affecting many users from a role group (e.g. Fedora maintainers, Upstream developers,...)? Can this bring a significant number of new users?_** => Add `impact/high`, add `impact/low` otherwise.
-   3. Add a `demo` label for tasks that are worth presenting to the team or users.
+   2. **_Is this affecting many users from a role group (e.g. Fedora maintainers, Upstream developers, etc.)? Can this bring a significant number of new users?_** => Add `impact/high`, add `impact/low` otherwise.
+   3. Add a `demo` label to tasks that are worth presenting to the team or users.
    4. Add `area/*`, `kind/*` and other suitable labels if needed.
    5. Add a deadline if applicable.
 3. Prioritising
