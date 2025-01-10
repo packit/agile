@@ -82,6 +82,20 @@ This label marks tasks that can lead to better resource utilisation. (Without si
 
 This label helps us gather cards to be discussed in weekly architecture meetings.
 
+### Story points
+
+Despite using Kanban, we use the Fibonnacci sequence numbers as story points similarly to Scrum to estimate the card's complexity, uncertanity and effort. As described in the [section about Refinement meeting](meetings#refinement), the main purpose of the sizing in our team is to brought up discussion and find differences in task understanding. As with regular Kanban where all the cards are made similar in time, we split all cards that can take more than a few days by not allowing cards with more than 5 story points.
+
+#### Story point scale
+
+This is how we think about the scale:
+
+- `1`: Very simple card done in a few hours. Everything is clear and straightforward. No unknown at all.
+- `2`: Easy card, a bit of thought required, but the ask is clear, well defined and should take one a day. Nothing unexpected is not expected.
+- `3`: Average task requiring a couple of days to finish. A bit of unknown is possible but usually does not require much interaction with anyone else and the outcome is clearly defined.
+- `5`: Well-defined but complex card that can take a week to finis h. Can spread across multiple projects, usually requires some extra discussion and updating as part of the review process.
+- `8`: This is a complex task that can take someone more than a week to finish. We avoid such cards since such cards usually contains a lot of unknowns and can easily take multiple weeks to finish for real.
+
 #### Action items / for discussion (Section to be removed before merging.)
 
 ##### To remove:
@@ -122,7 +136,7 @@ Process of handling new cards and categorizing them.
    4. **_Is the task actionable and we are in general sure what the card is about and which way the solution be chosen?_** => Enhance the title and description, if needed, and move outside of the `new` column.
    5. **_Does the issue come from an external person and there is a chance of contributing this?_** => Politely ask if the requester would be able to contribute this with our help.
 2. Labelling
-   1. **_Can we get a new user or allow a new user to start using a feature? Can this determine for the user if Packit will be used in the future?_** => Add `gain/high` label.
+   1. **_Can we get a new Packit user or allow an already onboarded user to start using another Packit's functionality? Can this influence the decision of a user whether Packit will be integrated in the future?_** => Add `gain/high` label.
       **_Is there a workaround or the feature is not significant to the user?_** => use `gain/low`.
    2. **_Is this affecting many users from a role group (e.g. Fedora maintainers, Upstream developers,...)? Can this bring a significant number of new users?_** => Add `impact/high`, add `impact/low` otherwise.
    3. Add a `demo` label for tasks that are worth presenting to the team or users.
