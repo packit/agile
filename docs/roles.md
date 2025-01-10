@@ -35,6 +35,10 @@ Community Shepherd is present on our communication channels and available to hel
 
 The person who does the releases of our projects (both on GitHub and in Fedora).
 
+### Chief of monitors
+
+The person responsible for checking the state of the service via metrics and Sentry alerts.
+
 ### Kanban Lead
 
 Kanban lead is a moderator of all the [meetings](./meetings) during the week and prepares them (e.g. a standup question or a retrospective board/activity).
