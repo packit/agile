@@ -1,51 +1,55 @@
-# Packit Kanban Board
+# How Packit team does Kanban?
+
+Packit team follows a Kanban methodology but not use just a board with `todo`/`wip`/`done` columns. We have couple of extra columns and rules. Let's take a look:
+
+## Packit Kanban Board
 
 The current board is publicly available at https://github.com/orgs/packit/projects/7.
 
-## Card states (board columns)
+### Card states (board columns)
 
-### `new`
+#### `new`
 
 This is a column where all the new cards are added (automatically for public repositories, via GitHub action for private ones). At the beginning of each [Standup meeting](./meetings#Standup), a [triaging](#Triage) of new unassigned cards happens resulting in either moving the card away into one of the other states or assigning a team member to further investigate and finish the triaging. Also, a card can be returned to the `new` column if we realise the card is not clear or needs attention (e.g. to check for relevancy). This can happen when going through the old cards during [Standup](./meetings#Standup).
 
-### `backlog`
+#### `backlog`
 
-This is a pile of cards that have been basically categorized but are not a current priority (present in the `priority-backlog`). The order of this column is not maintained.
+This is a pile of cards that have been basically categorized but are not a current priority (present in the `priority-backlog`), or it is not within our capacity to finish them within next 3 months. The order of this column is not maintained.
 
-### `priority-backlog`
+#### `priority-backlog`
 
 This is an ordered list of categorized cards that the team is considering for the next work. The priority is based on impact, user value, urgency and the current team plans and capacity. The team is revisiting the epic-level priorities on a quarterly level and the cards in the `priority-backlog` should be done in 3 months. This means the number of cards needs to be maintained below ~50.
 
-### `refined`
+#### `refined`
 
 This column consists of cards prepared to be worked on next when someone has a free capacity. The tasks should be actionable right away and doable by anyone. To get a card to this state a [refining process](#Refine) is used.
 
-### `in-progress`
+#### `in-progress`
 
 When a card is taken by someone from a `refined` column, it is assigned to that person and moved to this column. This is the list of cards that are being actively worked on.
 
-### `in-review`
+#### `in-review`
 
 These tasks are nearly finished, being reviewed and polished.
 
-### `done`
+#### `done`
 
 This is the column where all the done cards result.
 
-## Card labels
+### Card labels
 
 Here is a list of labels we use to categorize cards to help ourselves navigate through the backlog and plan our work.
 Note that there is no priority label since this consists of multiple factors like _impact_ and _gain_. Combined with the urgency, our current plans (based on demand) and capacity, this is visible from the place on the board.
 
-### Area
+#### Area
 
 These labels help to group related cards across all the projects. The area can determine a target git-forge (e.g. `area/github`/`area/gitlab`), service being integrated (e.g. `area/testing-farm` or `area/copr`) or a shared code-level logic (e.g. `area/config` or `area/database`).
 
-### Complexity
+#### Complexity
 
 This is a rough estimation of how much time is expected for this card to be done. Mainly to separate epics from single cards. -- work consisting of multiple tasks, usually taking more time and being discussed in quarterly meetings.
 
-### Gain
+#### Gain
 
 This determines the value it gives to affected users.
 
@@ -57,7 +61,7 @@ This determines the value it gives to affected users.
   - If `workaround-exists` (separate label).
   - User can fully benefit from Packit without the card being done.
 
-### Impact
+#### Impact
 
 These labels determine the size of a user group affected by this card combined with a frequency. To make this comparable, it is based on generic user roles like `upstream-developer` or `fedora-maintainer`. This means we won't mark a card as high-impactful when all (but a few in reality) users of a rear functionality are affected.
 
@@ -66,21 +70,21 @@ This needs to be combined with frequency -- this means how often they can benefi
 - `impact/high`: Many users are affected by this card and the occurrence is significant.
 - `impact/low`: The card affects only a few users and/or rarely-used features. The issues are not hit often.
 
-### `blocked`
+#### `blocked`
 
 This label is used to show that we can't move this card/work forward because of an external reason. For a reason, this is not a board state since the card can be blocked on various states of the development.
 
-### `resource-reduction`
+#### `resource-reduction`
 
 This label marks tasks that can lead to better resource utilisation. (Without significant functional loss, fewer resources can be spent.)
 
-### `discuss`
+#### `discuss`
 
 This label helps us gather cards to be discussed in weekly architecture meetings.
 
-### Action items / for discussion (Section to be removed before merging.)
+#### Action items / for discussion (Section to be removed before merging.)
 
-#### To remove:
+##### To remove:
 
 - `needs-info` (`new` state)
 - `needs-design` (not used)
@@ -91,19 +95,19 @@ This label helps us gather cards to be discussed in weekly architecture meetings
 - Is `has-release-notes` still relevant?
 - Do `wontfix` and `invalid` labels provide any value when the issue is closed and marked as not planned with a comment?
 
-#### Edits
+##### Edits
 
 - Rename `area/refactor` to `area/technical-debt`.
 - Rename `testing` to `area/testing`
 
-#### Questions
+##### Questions
 
 - Do we need complexity?
 - Do we need `kind/documentation`? (We have a separate project for doc-only cards and don't mention this explicitly on other cards.)
 
-## Grooming process cheat sheet:
+### Grooming process cheat sheet:
 
-## Triage
+### Triage
 
 :::note
 
@@ -129,7 +133,7 @@ Process of handling new cards and categorizing them.
    2. **_Is there a `gain/high` and `impact/high` label? Do we need/want to finish this within ~3 months? Is this part of our current high-level plans for the quarter?_** => Move to the `priority-backlog` column.
    3. **_Is there a workaround? Doesn't the task make a user start/stop using Packit? Or, otherwise. _** => move to the `backlog` column.
 
-## Refine
+### Refine
 
 (=prepare card for work)
 
