@@ -52,3 +52,5 @@ Miro board is created by the [Kanban Lead](./roles#kanban-lead) leading the Retr
 There's a default Miro board template prepared, but any activity or board can be used to make it more interesting.
 
 Action items from the previous retro board should be included to be discussed and checked.
+
+At the end of the meeting, we revisit our [epics](https://github.com/orgs/packit/projects/7/views/29) and how we are standing on our planned epics for the quarter.
