@@ -90,8 +90,8 @@ Despite using Kanban, we use the Fibonnacci sequence numbers as story points sim
 
 This is how we think about the scale:
 
-- `1`: Very simple card done in a few hours. Everything is clear and straightforward. No unknown at all.
-- `2`: Easy card, a bit of thought required, but the ask is clear, well defined and should take one day. Complications are not expected.
+- `1`: Very simple card done in ~20 minutes. Everything is clear and straightforward. No unknown at all.
+- `2`: Easy card, a bit of thought required, but the ask is clear, well defined and should take at most a day to finish. Complications are not expected.
 - `3`: Average task requiring a couple of days to finish. A bit of unknown is possible but usually does not require much interaction with anyone else and the outcome is clearly defined.
 - `5`: Well-defined but complex card that can take a week to finish. Can span across multiple projects, usually requires some extra discussion and updating as part of the review process.
 - `8`: This is a complex task that can take someone more than a week to finish. We avoid such cards since such cards usually contain a lot of unknowns and can easily take multiple weeks to finish for real.
