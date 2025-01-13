@@ -96,29 +96,6 @@ This is how we think about the scale:
 - `5`: Well-defined but complex card that can take a week to finish. Can span across multiple projects, usually requires some extra discussion and updating as part of the review process.
 - `8`: This is a complex task that can take someone more than a week to finish. We avoid such cards since such cards usually contain a lot of unknowns and can easily take multiple weeks to finish for real.
 
-#### Action items / for discussion (Section to be removed before merging.)
-
-##### To remove:
-
-- `needs-info` (`new` state)
-- `needs-design` (not used)
-- `pinned`
-- `triaged`
-- `invalid`
-- `RHOSC`, `GSOC`
-- Is `has-release-notes` still relevant?
-- Do `wontfix` and `invalid` labels provide any value when the issue is closed and marked as not planned with a comment?
-
-##### Edits
-
-- Rename `area/refactor` to `area/technical-debt`.
-- Rename `testing` to `area/testing`
-
-##### Questions
-
-- Do we need complexity?
-- Do we need `kind/documentation`? (We have a separate project for doc-only cards and don't mention this explicitly on other cards.)
-
 ### Grooming process cheat sheet:
 
 ### Triage
