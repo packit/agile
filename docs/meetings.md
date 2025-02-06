@@ -20,7 +20,8 @@ We have standups 3 times a week (Mondays, Tuesdays and Thursdays) to talk about 
 
 ## Architecture
 
-To not make [Standup](#standup) meetings too long, we've separated the longer discussions into a weekly organised meeting. As the name suggests, the main goal of this meeting is to discuss technical or architectural topics but there is a place to discuss anything. The topics are collected beforehand in a shared document. Alternatively, anyone can add a [`discuss` label](./kanban#discuss) to an issue.
+To not make [Standup](#standup) meetings too long, we've separated the longer discussions into a weekly organised meeting. As the name suggests, the main goal of this meeting is to discuss technical or architectural topics but there is a place to discuss anything. The topics are collected beforehand in a shared document.
+For relevant topics (public, open for community input), one can create a discussion thread at [GitHub Discussions](https://github.com/packit/packit/discussions/categories/architecture) and link it in the document. Alternatively, anyone can add a [`discuss` label](./kanban#discuss) to an issue.
 
 [Kanban Lead](./roles#kanban-lead) facilitates the discussion and shows a 5-minute timer for each topic (can be reset if everyone agrees to continue with a discussion). [Kanban Lead](./roles#kanban-lead) is also responsible for note-taking and making a clear conclusion from the discussion including the clear action items. Anyone is welcome to help with the notes since sometimes it's hard to facilitate discussion and make notes at the same time.
 
