@@ -59,8 +59,8 @@ class RotationHelper:
         candidates = list(PEOPLE - set(maintainers))
         random.shuffle(candidates)
 
-        next_candidate = (
-            lambda: candidates.pop() if candidates else random.choice(list(PEOPLE))
+        next_candidate = lambda: (
+            candidates.pop() if candidates else random.choice(list(PEOPLE))
         )
 
         # Remove the responsible of the first role and use the last
