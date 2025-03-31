@@ -15,13 +15,15 @@ PEOPLE = {
     "nforro",
 }
 
-ISSUE_TITLES = [
-    "Service Guru",
-    "Chief of Monitors",
-    "Kanban Lead",
-    "Release Responsible",
-    "Community Shepherd",
-]
+RESTRICTED_PEOPLE = {
+    "lachmanfrantisek",
+    "majamassarini",
+}
+
+ONE_TIME_ACTION_ROLES = ["Service Guru", "Release Responsible"]
+GENERAL_ROLES = ["Chief of Monitors", "Kanban Lead", "Community Shepherd"]
+
+ISSUE_TITLES = ONE_TIME_ACTION_ROLES + GENERAL_ROLES
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -56,26 +58,25 @@ class RotationHelper:
 
     def _rotate_roles(self) -> List[str]:
         maintainers = [issue.assignees[0].login for issue in self.previous_week_issues]
-        candidates = list(PEOPLE - set(maintainers))
+        candidates = list((PEOPLE - RESTRICTED_PEOPLE) - set(maintainers))
         random.shuffle(candidates)
 
-        next_candidate = (
-            lambda: candidates.pop() if candidates else random.choice(list(PEOPLE))
+        # rotate between Maja and Franta for one time action roles temporarily
+        maintainers[:2] = (
+            ["majamassarini", "lachmanfrantisek"]
+            if maintainers[0] == "lachmanfrantisek"
+            else ["lachmanfrantisek", "majamassarini"]
         )
 
-        # Remove the responsible of the first role and use the last
-        # of the candidates for the last one or in case of no candidates
-        # (=same number of people and roles), use the responsible of the first role
-        maintainers = maintainers[1:] + [
-            next_candidate() if candidates else maintainers[0]
-        ]
-        # Some maintainers who were active might not
-        # be in the PEOPLE set already.
-        # Replace them with someone from candidates.
-        # Chose someone randomly if candidates run out.
-        for i, maintainer in enumerate(maintainers):
-            if maintainer not in PEOPLE:
-                maintainers[i] = next_candidate()
+        for i in range(2, len(maintainers)):
+            if maintainers[i] not in PEOPLE:
+                maintainers[i] = (
+                    candidates.pop()
+                    if candidates
+                    else random.choice(list(PEOPLE - RESTRICTED_PEOPLE))
+                )
+
+        maintainers[2:] = maintainers[3:] + [maintainers[2]]
 
         return maintainers
 
