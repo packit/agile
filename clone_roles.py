@@ -34,7 +34,7 @@ class RotationHelper:
     def __init__(self, token):
         self.weekly_roles_project: GithubProject = GithubService(
             token=token
-        ).get_project(repo="weekly-roles", namespace="packit")
+        ).get_project(repo="agile", namespace="packit")
         self._previous_week_issues = None
 
     @property
