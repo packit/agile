@@ -7,6 +7,7 @@ from ogr.abstract import IssueStatus, Issue
 from ogr.services.github.project import GithubProject
 from ogr.services.github.service import GithubService
 
+ROLE_LABEL = "kind/role"
 PEOPLE = {
     "lachmanfrantisek",
     "lbarcziova",
@@ -40,7 +41,7 @@ class RotationHelper:
     def previous_week_issues(self):
         if not self._previous_week_issues:
             issues = self.weekly_roles_project.get_issue_list(
-                labels=["roles"], status=IssueStatus.all
+                labels=[ROLE_LABEL], status=IssueStatus.all
             )
             # sort the issues by created attribute from the newest
             issues.sort(key=lambda issue: issue.created, reverse=True)
@@ -91,7 +92,7 @@ class RotationHelper:
                 title=issue.title,
                 body=new_description,
                 assignees=[new_maintainer],
-                labels=["roles"],
+                labels=[ROLE_LABEL],
             )
             logger.info(f"Role: {issue.title}, assignee: {new_maintainer}")
 
