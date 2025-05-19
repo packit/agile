@@ -1,30 +1,30 @@
 import logging
 import os
 import random
-from typing import List
+from typing import List, Optional, Mapping
 
 from ogr.abstract import IssueStatus, Issue
 from ogr.services.github.project import GithubProject
 from ogr.services.github.service import GithubService
 
 ROLE_LABEL = "kind/role"
-PEOPLE = {
-    "lachmanfrantisek",
-    "lbarcziova",
-    "mfocko",
-    "majamassarini",
-    "nforro",
+ISSUE_TITLES = [
+    "Service Guru",
+    "Release Responsible",
+    "Chief of Monitors",
+    "Kanban Lead",
+    "Community Shepherd",
+]
+MAINTAINERS_ALLOWED_JOBS = {
+    "lachmanfrantisek": [
+        "Service Guru",
+        "Release Responsible",
+    ],  # Restricted job choice
+    "majamassarini": ISSUE_TITLES,  # Can do any job
+    "lbarcziova": ISSUE_TITLES,
+    "mfocko": ISSUE_TITLES,
+    "nforro": ISSUE_TITLES,
 }
-
-RESTRICTED_PEOPLE = {
-    "lachmanfrantisek",
-    "majamassarini",
-}
-
-ONE_TIME_ACTION_ROLES = ["Service Guru", "Release Responsible"]
-GENERAL_ROLES = ["Chief of Monitors", "Kanban Lead", "Community Shepherd"]
-
-ISSUE_TITLES = ONE_TIME_ACTION_ROLES + GENERAL_ROLES
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -57,33 +57,80 @@ class RotationHelper:
         # so the first found is the most recent
         return next(issue for issue in issues if issue.title == title)
 
-    def _rotate_roles(self) -> List[str]:
-        maintainers = [issue.assignees[0].login for issue in self.previous_week_issues]
-        candidates = list((PEOPLE - RESTRICTED_PEOPLE) - set(maintainers))
-        random.shuffle(candidates)
+    def get_last_done_job(self) -> Mapping[str, Optional[str]]:
+        maintainers_last_job = {k: None for k in MAINTAINERS_ALLOWED_JOBS.keys()}
+        for issue in self.previous_week_issues:
+            job_title = issue.title
+            assignee = issue.assignees[0].login
+            if assignee in maintainers_last_job:
+                maintainers_last_job[assignee] = job_title
+        return maintainers_last_job
 
-        # rotate between Maja and Franta for one time action roles temporarily
-        maintainers[:2] = (
-            ["majamassarini", "lachmanfrantisek"]
-            if maintainers[0] == "lachmanfrantisek"
-            else ["lachmanfrantisek", "majamassarini"]
-        )
+    def choose_maintainer(
+        self,
+        job_title: str,
+        maintainers_last_job: Mapping[str, Optional[str]],
+        already_assigned: List[str],
+    ) -> str:
+        eligible_maintainers = []
+        for maintainer, jobs in MAINTAINERS_ALLOWED_JOBS.items():
+            if job_title in jobs and maintainer not in already_assigned:
+                eligible_maintainers.append(maintainer)
 
-        for i in range(2, len(maintainers)):
-            if maintainers[i] not in PEOPLE:
-                maintainers[i] = (
-                    candidates.pop()
-                    if candidates
-                    else random.choice(list(PEOPLE - RESTRICTED_PEOPLE))
-                )
+        # If no eligible maintainers are available (all already assigned),
+        # we need to pick someone who can do this job even if they're already assigned
+        if not eligible_maintainers:
+            for maintainer, jobs in MAINTAINERS_ALLOWED_JOBS.items():
+                if job_title in jobs:
+                    eligible_maintainers.append(maintainer)
 
-        maintainers[2:] = maintainers[3:] + [maintainers[2]]
+        # If maintainers have done nothing previous week, choose between them
+        best_fits = []
+        for maintainer in eligible_maintainers:
+            if maintainers_last_job[maintainer] is None:
+                best_fits.append(maintainer)
+
+        if best_fits:
+            return random.choice(best_fits)
+
+        # If maintainers' next role is this, choose between them
+        best_fits = []
+        for maintainer in eligible_maintainers:
+            jobs = MAINTAINERS_ALLOWED_JOBS[maintainer]
+            last_job = maintainers_last_job[maintainer]
+            if last_job and last_job in jobs:
+                new_job_index = (jobs.index(last_job) + 1) % len(jobs)
+                if jobs[new_job_index] == job_title:
+                    best_fits.append(maintainer)
+
+        if best_fits:
+            return random.choice(best_fits)
+
+        # Otherwise choose between all eligible
+        return random.choice(eligible_maintainers)
+
+    def rotate_roles(self) -> List[str]:
+        """
+        Finds eligible maintainers who can do the job.
+        Prioritizes maintainers who didn't have a job last time.
+        If all eligible maintainers had jobs, it finds the next job in rotation for each maintainer.
+        If no clear next-in-rotation, it picks randomly
+        """
+        maintainers_last_job = self.get_last_done_job()
+        maintainers = []
+        already_assigned: List[str] = []
+
+        for job_title in ISSUE_TITLES:
+            maintainer = self.choose_maintainer(
+                job_title, maintainers_last_job, already_assigned
+            )
+            maintainers.append(maintainer)
+            already_assigned.append(maintainer)
 
         return maintainers
 
     def create_issues(self):
-        maintainers = self._rotate_roles()
-
+        maintainers = self.rotate_roles()
         logger.info("Creating issues:")
         for issue, new_maintainer in zip(self.previous_week_issues, maintainers):
             # make all tasks not done
