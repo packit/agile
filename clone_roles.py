@@ -16,10 +16,6 @@ ISSUE_TITLES = [
     "Community Shepherd",
 ]
 MAINTAINERS_ALLOWED_JOBS = {
-    "lachmanfrantisek": [
-        "Service Guru",
-        "Release Responsible",
-    ],  # Restricted job choice
     "majamassarini": ISSUE_TITLES,  # Can do any job
     "lbarcziova": ISSUE_TITLES,
     "mfocko": ISSUE_TITLES,
