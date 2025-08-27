@@ -42,3 +42,7 @@ The person responsible for monitoring the state of the service via metrics and a
 ### Kanban Lead
 
 Kanban lead is a moderator of all the [meetings](./meetings) during the week and prepares them (e.g. a standup question or a retrospective board/activity).
+
+### Skald
+
+A poet inspecting wild Jotnar and writing about their adventures.

@@ -14,6 +14,7 @@ ISSUE_TITLES = [
     "Chief of Monitors",
     "Kanban Lead",
     "Community Shepherd",
+    "Skald",
 ]
 MAINTAINERS_ALLOWED_JOBS = {
     "majamassarini": ISSUE_TITLES,  # Can do any job
