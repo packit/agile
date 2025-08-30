@@ -60,7 +60,7 @@ class RotationHelper:
         maintainers_last_job = {k: None for k in MAINTAINERS_ALLOWED_JOBS.keys()}
         for issue in self.previous_week_issues:
             job_title = issue.title
-            assignee = issue.assignees[0].login
+            assignee = issue.assignees[0].login if issue.assignees else None
             if assignee in maintainers_last_job:
                 maintainers_last_job[assignee] = job_title
         return maintainers_last_job
