@@ -14,14 +14,12 @@ ISSUE_TITLES = [
     "Chief of Monitors",
     "Kanban Lead",
     "Community Shepherd",
-    "Skald",
 ]
 MAINTAINERS_ALLOWED_JOBS = {
     "majamassarini": ISSUE_TITLES,  # Can do any job
     "lbarcziova": ISSUE_TITLES,
     "m-blaha": ISSUE_TITLES,
     "nforro": ISSUE_TITLES,
-    "TomasTomecek": ISSUE_TITLES,
     "betulependule": ISSUE_TITLES,  # akucerov
 }
 
