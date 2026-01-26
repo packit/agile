@@ -35,7 +35,7 @@ If there is a strong decision needed, let people provide feedback also offline (
 
 ## Refinement meeting
 
-Weekly meetings to prepare our next cards to work on. This is not to **_plan_** the work for the next week as done in Scrum. Kanban is based on a stream of cards going through [the board columns](./kanban#card-states-board-columns). This activity is about moving the card from the top of the backlog (a [priority one](./kanban#priority-backlog) in our case) into the [_refined_ column](./kanban#refined) by following [our refinement process](./kanban#refine).
+Weekly meetings to prepare our next cards to work on. This is not to **_plan_** the work for the next week as done in Scrum. Kanban is based on a stream of cards going through [the board columns](./kanban#card-states-board-columns). This activity is about moving the card from the top of the backlog (a [priority one](./kanban#priority-backlog) in our case, visible in the `priority` column on the board) into the [_refined_ column](./kanban#refined) by following [our refinement process](./kanban#refine).
 Basically it's about making sure the task is clearly defined and understood by the team members so they can be taken by anyone to start the real work.
 
 The discussion starts with a quick introduction of the card (done by a [Kanban Lead](./roles#kanban-lead) or a person the most familiar with the task). The card is being updated and the discussion continues until we agree it's clear and can be done in 5 days or less -- to help ourselves reach this agreement, there is a voting going on. We used to do a thumbs-up/down for the following questions:
@@ -45,7 +45,7 @@ The discussion starts with a quick introduction of the card (done by a [Kanban L
 
 Since there wasn't much disagreement and discussion, we switched to Scrum-like voting by hand about [story points](./kanban#story-points). (A [difference in story points](./kanban#story-point-scale) helps us better find a difference in the understanding.) We collect the story points but it's not the main reason why we do the voting. Be respectful when asking people why they've chosen a different story point number. It's to help everyone with the understanding and also to share the possible risks, not to put someone on the spot!
 
-At the end of the meeting, make sure the order (=priority) of the cards in the _refined_ column is right and respects our priorities as shown on the [epic board](https://github.com/orgs/packit/projects/7/views/29), but also considers any urgent tasks (e.g. maintenance like renewing certificates).
+At the end of the meeting, make sure the order (=priority) of the cards in the _refined_ column is right and respects our priorities as shown in the [epic board](https://issues.redhat.com/secure/PortfolioPlanView.jspa?id=3674&sid=3694&vid=16173#plan/backlog), but also considers any urgent tasks (e.g. maintenance like renewing certificates).
 
 ## Retrospectives
 
@@ -56,4 +56,4 @@ There's a default Miro board template prepared, but any activity or board can be
 
 Action items from the previous retro board should be included to be discussed and checked.
 
-At the end of the meeting, we revisit our [epics](https://github.com/orgs/packit/projects/7/views/29) and how we are standing on our planned epics for the quarter.
+At the end of the meeting, we revisit our [epics](https://issues.redhat.com/secure/PortfolioPlanView.jspa?id=3674&sid=3694&vid=16173#plan/backlog) and how we are standing on our planned epics for the quarter.
