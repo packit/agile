@@ -4,7 +4,9 @@ Packit team follows the Kanban methodology but does not just use a board with `t
 
 ## Packit Kanban Board
 
-The current board is publicly available at https://github.com/orgs/packit/projects/7.
+The current board is available at https://issues.redhat.com/secure/RapidBoard.jspa?rapidView=22813.
+
+The Jira board displays the active workflow columns: `new`, `priority` (To Do), `refined`, `in progress`, `in review`, and `done`. To view and manage the backlog items, use the [backlog view](https://issues.redhat.com/secure/RapidBoard.jspa?rapidView=22813&projectKey=PACKIT&view=planning.nodetail&issueLimit=100#). For a complete list of all issues across all states, see the [issues view](https://issues.redhat.com/projects/PACKIT/issues).
 
 ### Card states (board columns)
 
@@ -16,9 +18,17 @@ This is a column where all the new cards are added (automatically for public rep
 
 This is a pile of cards that have been basically categorized but are not a current priority (such cards are present in the `priority-backlog`), or it is not within our capacity to finish them within the next 3 months. The order of this column is not maintained.
 
+:::note
+
+The `backlog` items are managed in the [backlog view](https://issues.redhat.com/secure/RapidBoard.jspa?rapidView=22813&projectKey=PACKIT&view=planning.nodetail&issueLimit=100#) and are not visible on the main board.
+
+:::
+
 #### `priority-backlog`
 
 This is an ordered list of categorized cards that the team is considering for the upcoming work. Their priority is determined based on impact, user value, urgency and current team plans and capacity. The team revisits the epic-level priorities quarterly and the cards in the `priority-backlog` should be finished in 3 months. This means the number of cards needs to be maintained to be below ~50.
+
+In Jira, the priority backlog is visible on the main board as the `priority` column ("To Do"). Cards are ordered by priority within this column and ready to be pulled into the workflow.
 
 #### `refined`
 
@@ -39,7 +49,7 @@ This is the column where all the done cards result.
 ### Card labels
 
 Here is a list of labels we use to categorize cards to help ourselves navigate through the backlog and plan our work.
-Note that there is no priority label since this consists of multiple factors like _impact_ and _gain_. Combined with the urgency, our current plans (based on demand) and capacity, this is visible from the place on the board.
+Note that there is no priority label since this consists of multiple factors like _impact_ and _gain_. Combined with the urgency, our current plans (based on demand) and capacity, this is visible from the place in the backlog or on the board.
 
 #### Area
 
@@ -121,8 +131,8 @@ Process of handling new cards and categorizing them.
    5. Add a deadline if applicable.
 3. Prioritising
    1. **_Is there a strict deadline? Did we break anything crucial? Are we significantly blocking users?_** => [Refine the card](#Refine) right away and move to the `refined` column.
-   2. **_Is there a `gain/high` and `impact/high` label? Do we need/want to finish this within ~3 months? Is this part of our current high-level plans for the quarter?_** => Move to the `priority-backlog` column.
-   3. **_Is there a workaround? Doesn't the task make a user start/stop using Packit? Or, otherwise. _** => move to the `backlog` column.
+   2. **_Is there a `gain/high` and `impact/high` label? Do we need/want to finish this within ~3 months? Is this part of our current high-level plans for the quarter?_** => Move to the `priority-backlog` (To Do) state.
+   3. **_Is there a workaround? Doesn't the task make a user start/stop using Packit? Or, otherwise. _** => move to the `backlog` state.
 
 ### Refine
 
