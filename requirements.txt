@@ -1,1 +1,3 @@
+# pyforgejo 2.0.5 breaks ogr (AttributeError: No core found in _dynamic_imports for module name -> pyforgejo)
+pyforgejo==2.0.4
 ogr
