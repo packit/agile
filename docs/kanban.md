@@ -4,9 +4,9 @@ Packit team follows the Kanban methodology but does not just use a board with `t
 
 ## Packit Kanban Board
 
-The current board is available at https://issues.redhat.com/secure/RapidBoard.jspa?rapidView=22813.
+The current board is available at https://redhat.atlassian.net/jira/software/c/projects/PACKIT/boards/2915.
 
-The Jira board displays the active workflow columns: `new`, `priority` (To Do), `refined`, `in progress`, `in review`, and `done`. To view and manage the backlog items, use the [backlog view](https://issues.redhat.com/secure/RapidBoard.jspa?rapidView=22813&projectKey=PACKIT&view=planning.nodetail&issueLimit=100#). For a complete list of all issues across all states, see the [issues view](https://issues.redhat.com/projects/PACKIT/issues).
+The Jira board displays the active workflow columns: `new`, `priority` (To Do), `refined`, `in progress`, `in review`, and `done`. To view and manage the backlog items, use the [backlog view](https://redhat.atlassian.net/jira/software/c/projects/PACKIT/boards/2915/backlog). For a complete list of all issues across all states, see the [issues view](https://redhat.atlassian.net/jira/software/c/projects/PACKIT/issues).
 
 ### Card states (board columns)
 
@@ -20,7 +20,7 @@ This is a pile of cards that have been basically categorized but are not a curre
 
 :::note
 
-The `backlog` items are managed in the [backlog view](https://issues.redhat.com/secure/RapidBoard.jspa?rapidView=22813&projectKey=PACKIT&view=planning.nodetail&issueLimit=100#) and are not visible on the main board.
+The `backlog` items are managed in the [backlog view](https://redhat.atlassian.net/jira/software/c/projects/PACKIT/boards/2915/backlog) and are not visible on the main board.
 
 :::
 
