@@ -18,7 +18,7 @@ ISSUE_TITLES = [
 MAINTAINERS_ALLOWED_JOBS = {
     "majamassarini": ISSUE_TITLES,  # Can do any job
     "lbarcziova": ISSUE_TITLES,
-    "m-blaha": ISSUE_TITLES,
+    "mfocko": ISSUE_TITLES,
     "nforro": ISSUE_TITLES,
     "betulependule": ISSUE_TITLES,  # akucerov
 }
