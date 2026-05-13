@@ -20,7 +20,6 @@ MAINTAINERS_ALLOWED_JOBS = {
     "lbarcziova": ISSUE_TITLES,
     "mfocko": ISSUE_TITLES,
     "nforro": ISSUE_TITLES,
-    "betulependule": ISSUE_TITLES,  # akucerov
 }
 
 logging.basicConfig(level=logging.INFO)
