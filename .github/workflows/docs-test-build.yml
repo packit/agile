@@ -12,11 +12,11 @@ jobs:
     name: Test deployment of docs
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           repository: "packit/packit.dev"
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
         with:
           node-version: 18
           cache: yarn
@@ -28,7 +28,7 @@ jobs:
         run: rm -rf .agile-docs agile
 
       - name: Checkout the PR
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           path: ".agile-docs"
 
