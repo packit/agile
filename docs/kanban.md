@@ -132,7 +132,7 @@ Process of handling new cards and categorizing them.
 3. Prioritising
    1. **_Is there a strict deadline? Did we break anything crucial? Are we significantly blocking users?_** => [Refine the card](#Refine) right away and move to the `refined` column.
    2. **_Is there a `gain/high` and `impact/high` label? Do we need/want to finish this within ~3 months? Is this part of our current high-level plans for the quarter?_** => Move to the `priority-backlog` (To Do) state.
-   3. **_Is there a workaround? Doesn't the task make a user start/stop using Packit? Or, otherwise. _** => move to the `backlog` state.
+   3. **\_Is there a workaround? Doesn't the task make a user start/stop using Packit? Or, otherwise. _** => move to the `backlog` state.
 
 ### Refine
 
