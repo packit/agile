@@ -21,7 +21,13 @@ INDEPENDENT_ROLE_ROTATIONS = {
 }
 INDEPENDENT_ROLES = list(INDEPENDENT_ROLE_ROTATIONS)
 ISSUE_TITLES = WEEKLY_ROLES + INDEPENDENT_ROLES
-WEEKLY_MAINTAINERS = ["majamassarini", "lbarcziova", "mfocko", "nforro"]
+WEEKLY_MAINTAINERS = [
+    "majamassarini",
+    "lbarcziova",
+    "mfocko",
+    "nforro",
+    "betulependule",
+]
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
