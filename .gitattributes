@@ -1,0 +1,2 @@
+# Mark devenv.sh lockfiles as generated, so they don’t pollute diffs
+devenv.lock linguist-generated
