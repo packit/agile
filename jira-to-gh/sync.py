@@ -13,13 +13,14 @@ Authentication:
 Usage:
   export JIRA_EMAIL=you@redhat.com
   export JIRA_TOKEN=...
-  ./sync_jira_to_github.py
-  ./sync_jira_to_github.py --dry-run
+  ./sync.py
+  ./sync.py --dry-run
+  ./sync.py --jql 'project = PACKIT AND labels = "custom"'
+  ./sync.py --url https://your.atlassian.net
 """
 
 from __future__ import annotations
 
-import argparse
 import json
 import os
 import re
@@ -27,6 +28,7 @@ import subprocess
 import sys
 from typing import Any, Iterator
 
+import click
 import requests
 from tqdm import tqdm
 
@@ -208,46 +210,36 @@ def set_jira_field(issue_node_id: str, jira_ticket: str, dry_run: bool) -> bool:
     return True
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Set the 'Jira ticket' GitHub issue field from Jira upstream tickets.",
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Print what would be updated without making any changes.",
-    )
-    parser.add_argument(
-        "--jql",
-        default=None,
-        help="Override the JQL query used to fetch Jira issues.",
-    )
-    parser.add_argument(
-        "--url",
-        default=os.environ.get("JIRA_URL", DEFAULT_JIRA_URL),
-        help=f"Jira base URL (env JIRA_URL, default: {DEFAULT_JIRA_URL}).",
-    )
-    return parser.parse_args()
-
-
-def main() -> int:
-    args = parse_args()
-
+@click.command()
+@click.option(
+    "--dry-run",
+    is_flag=True,
+    help="Print what would be updated without making any changes.",
+)
+@click.option(
+    "--jql",
+    default=None,
+    help="Override the JQL query used to fetch Jira issues.",
+)
+@click.option(
+    "--url",
+    default=os.environ.get("JIRA_URL", DEFAULT_JIRA_URL),
+    help=f"Jira base URL (env JIRA_URL, default: {DEFAULT_JIRA_URL}).",
+)
+def main(dry_run: bool, jql: str | None, url: str) -> None:
     email = os.environ.get("JIRA_EMAIL")
     token = os.environ.get("JIRA_TOKEN")
     if not email or not token:
-        print(
+        raise click.ClickException(
             "Set JIRA_EMAIL and JIRA_TOKEN environment variables.\n"
-            "Create a token at: https://id.atlassian.com/manage-profile/security/api-tokens",
-            file=sys.stderr,
+            "Create a token at: https://id.atlassian.com/manage-profile/security/api-tokens"
         )
-        return 1
 
-    jql = args.jql or DEFAULT_JQL
+    jql = jql or DEFAULT_JQL
 
-    print(f"# JQL: {jql}", file=sys.stderr)
-    if args.dry_run:
-        print("# Dry run — no changes will be made.", file=sys.stderr)
+    click.echo(f"# JQL: {jql}", err=True)
+    if dry_run:
+        click.echo("# Dry run — no changes will be made.", err=True)
 
     updated = 0
     skipped = 0
@@ -255,11 +247,9 @@ def main() -> int:
 
     # Collect all (jira_key, owner, repo, number) tuples across all Jira issues.
     pending: list[tuple[str, str, str, int]] = []
-    for issue in tqdm(
-        iter_issues(args.url, email, token, jql), desc="Fetching web links"
-    ):
+    for issue in tqdm(iter_issues(url, email, token, jql), desc="Fetching web links"):
         key = issue["key"]
-        web_links = fetch_web_links(args.url, email, token, key)
+        web_links = fetch_web_links(url, email, token, key)
         for link in web_links:
             m = GITHUB_ISSUE_RE.match(link)
             if m:
@@ -280,28 +270,29 @@ def main() -> int:
 
     for key, owner, repo, number in inaccessible:
         gh_url = f"https://github.com/{owner}/{repo}/issues/{number}"
-        print(f"{key}")
-        print(f"  SKIP  {gh_url}  (issue not found or no access)")
+        click.echo(f"{key}")
+        click.echo(f"  SKIP  {gh_url}  (issue not found or no access)")
         skipped += 1
 
     for sort_ts, key, node_id, owner, repo, number in enriched:
         gh_url = f"https://github.com/{owner}/{repo}/issues/{number}"
-        print(f"{key}")
-        action = "DRY-RUN" if args.dry_run else "SET"
-        ok = set_jira_field(node_id, key, args.dry_run)
+        click.echo(f"{key}")
+        action = "DRY-RUN" if dry_run else "SET"
+        ok = set_jira_field(node_id, key, dry_run)
         if ok:
-            print(f"  {action}  {gh_url}  -> Jira ticket: {key}")
+            click.echo(f"  {action}  {gh_url}  -> Jira ticket: {key}")
             updated += 1
         else:
-            print(f"  ERROR  {gh_url}")
+            click.echo(f"  ERROR  {gh_url}", err=True)
             errors += 1
 
-    print(
+    click.echo(
         f"\nDone: {updated} updated, {skipped} skipped, {errors} errors.",
-        file=sys.stderr,
+        err=True,
     )
-    return 0 if errors == 0 else 1
+    if errors != 0:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()
