@@ -20,17 +20,14 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import base64
 import json
 import os
 import re
 import subprocess
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
 from typing import Any, Iterator
 
+import requests
 from tqdm import tqdm
 
 DEFAULT_JIRA_URL = "https://redhat.atlassian.net"
@@ -46,48 +43,34 @@ JIRA_TICKET_FIELD_ID = "IFT_kgDOArAWcw"
 GITHUB_ISSUE_RE = re.compile(r"https://github\.com/([^/]+)/([^/]+)/issues/(\d+)")
 
 
-def auth_headers(email: str, token: str) -> dict[str, str]:
-    credentials = base64.b64encode(f"{email}:{token}".encode()).decode()
-    return {
-        "Authorization": f"Basic {credentials}",
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-    }
-
-
-def jira_get(url: str, headers: dict[str, str]) -> Any:
-    request = urllib.request.Request(url, headers=headers, method="GET")
+def jira_get(url: str, email: str, token: str) -> Any:
     try:
-        with urllib.request.urlopen(request) as response:
-            return json.load(response)
-    except urllib.error.HTTPError as exc:
-        detail = exc.read().decode(errors="replace")
-        raise SystemExit(f"Jira API error {exc.code} for {url}:\n{detail}") from exc
-    except urllib.error.URLError as exc:
-        raise SystemExit(f"Failed to reach Jira at {url}: {exc.reason}") from exc
+        response = requests.get(url, auth=(email, token))
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.HTTPError as exc:
+        raise SystemExit(
+            f"Jira API error {exc.response.status_code} for {url}:\n{exc.response.text}"
+        ) from exc
+    except requests.exceptions.RequestException as exc:
+        raise SystemExit(f"Failed to reach Jira at {url}: {exc}") from exc
 
 
-def jira_post(
-    url: str, headers: dict[str, str], body: dict[str, Any]
-) -> dict[str, Any]:
-    request = urllib.request.Request(
-        url,
-        data=json.dumps(body).encode(),
-        headers=headers,
-        method="POST",
-    )
+def jira_post(url: str, email: str, token: str, body: dict[str, Any]) -> dict[str, Any]:
     try:
-        with urllib.request.urlopen(request) as response:
-            return json.load(response)
-    except urllib.error.HTTPError as exc:
-        detail = exc.read().decode(errors="replace")
-        raise SystemExit(f"Jira API error {exc.code} for {url}:\n{detail}") from exc
-    except urllib.error.URLError as exc:
-        raise SystemExit(f"Failed to reach Jira at {url}: {exc.reason}") from exc
+        response = requests.post(url, json=body, auth=(email, token))
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.HTTPError as exc:
+        raise SystemExit(
+            f"Jira API error {exc.response.status_code} for {url}:\n{exc.response.text}"
+        ) from exc
+    except requests.exceptions.RequestException as exc:
+        raise SystemExit(f"Failed to reach Jira at {url}: {exc}") from exc
 
 
 def iter_issues(
-    jira_url: str, headers: dict[str, str], jql: str
+    jira_url: str, email: str, token: str, jql: str
 ) -> Iterator[dict[str, Any]]:
     search_url = f"{jira_url.rstrip('/')}/rest/api/3/search/jql"
     next_page_token: str | None = None
@@ -101,7 +84,7 @@ def iter_issues(
         if next_page_token:
             body["nextPageToken"] = next_page_token
 
-        data = jira_post(search_url, headers, body)
+        data = jira_post(search_url, email, token, body)
         yield from data.get("issues", [])
 
         next_page_token = data.get("nextPageToken")
@@ -109,11 +92,9 @@ def iter_issues(
             break
 
 
-def fetch_web_links(
-    jira_url: str, headers: dict[str, str], issue_key: str
-) -> list[str]:
+def fetch_web_links(jira_url: str, email: str, token: str, issue_key: str) -> list[str]:
     url = f"{jira_url.rstrip('/')}/rest/api/3/issue/{issue_key}/remotelink"
-    links = jira_get(url, headers)
+    links = jira_get(url, email, token)
     return [
         link["object"]["url"] for link in links if (link.get("object") or {}).get("url")
     ]
@@ -263,7 +244,6 @@ def main() -> int:
         return 1
 
     jql = args.jql or DEFAULT_JQL
-    headers = auth_headers(email, token)
 
     print(f"# JQL: {jql}", file=sys.stderr)
     if args.dry_run:
@@ -275,9 +255,11 @@ def main() -> int:
 
     # Collect all (jira_key, owner, repo, number) tuples across all Jira issues.
     pending: list[tuple[str, str, str, int]] = []
-    for issue in tqdm(iter_issues(args.url, headers, jql), desc="Fetching web links"):
+    for issue in tqdm(
+        iter_issues(args.url, email, token, jql), desc="Fetching web links"
+    ):
         key = issue["key"]
-        web_links = fetch_web_links(args.url, headers, key)
+        web_links = fetch_web_links(args.url, email, token, key)
         for link in web_links:
             m = GITHUB_ISSUE_RE.match(link)
             if m:
