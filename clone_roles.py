@@ -17,7 +17,7 @@ WEEKLY_ROLES = [
     "Community Shepherd",
 ]
 INDEPENDENT_ROLE_ROTATIONS = {
-    "Skald": ["lbarcziova", "majamassarini", "opohorel", "TomasTomecek", "nforro"],
+    "Skald": ["lbarcziova", "majamassarini", "opohorel", "nforro"],
 }
 INDEPENDENT_ROLES = list(INDEPENDENT_ROLE_ROTATIONS)
 ISSUE_TITLES = WEEKLY_ROLES + INDEPENDENT_ROLES
