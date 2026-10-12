@@ -9,15 +9,22 @@ from ogr.services.github.project import GithubProject
 from ogr.services.github.service import GithubService
 
 ROLE_LABEL = "kind/role"
+ROLE_SERVICE_GURU = "Service Guru"
+ROLE_RELEASE_RESPONSIBLE = "Release Responsible"
+ROLE_CHIEF_OF_MONITORS = "Chief of Monitors"
+ROLE_KANBAN_LEAD = "Kanban Lead"
+ROLE_COMMUNITY_SHEPHERD = "Community Shepherd"
+ROLE_SKALD = "Skald"
+
 WEEKLY_ROLES = [
-    "Service Guru",
-    "Release Responsible",
-    "Chief of Monitors",
-    "Kanban Lead",
-    "Community Shepherd",
+    ROLE_SERVICE_GURU,
+    ROLE_RELEASE_RESPONSIBLE,
+    ROLE_CHIEF_OF_MONITORS,
+    ROLE_KANBAN_LEAD,
+    ROLE_COMMUNITY_SHEPHERD,
 ]
 INDEPENDENT_ROLE_ROTATIONS = {
-    "Skald": ["lbarcziova", "majamassarini", "opohorel", "nforro", "TomasKorbar"],
+    ROLE_SKALD: ["lbarcziova", "majamassarini", "opohorel", "nforro", "TomasKorbar"],
 }
 INDEPENDENT_ROLES = list(INDEPENDENT_ROLE_ROTATIONS)
 ISSUE_TITLES = WEEKLY_ROLES + INDEPENDENT_ROLES
@@ -27,7 +34,11 @@ WEEKLY_MAINTAINERS = [
     "mfocko",
     "nforro",
     "betulependule",
+    "DaliborKr",
 ]
+ROLE_EXCLUDED_MAINTAINERS = {
+    ROLE_CHIEF_OF_MONITORS: {"DaliborKr"},
+}
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -81,9 +92,14 @@ class RotationHelper:
         maintainers_last_job: dict[str, str | None],
         already_assigned: list[str],
     ) -> str:
-        eligible = [m for m in WEEKLY_MAINTAINERS if m not in already_assigned]
+        role_maintainers = [
+            m
+            for m in WEEKLY_MAINTAINERS
+            if m not in ROLE_EXCLUDED_MAINTAINERS.get(job_title, set())
+        ]
+        eligible = [m for m in role_maintainers if m not in already_assigned]
         if not eligible:
-            eligible = list(WEEKLY_MAINTAINERS)
+            eligible = role_maintainers
 
         best_fits = [m for m in eligible if maintainers_last_job[m] is None]
         if best_fits:
